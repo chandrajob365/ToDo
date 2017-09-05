@@ -9767,25 +9767,37 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todoList: []
+      todoList: {},
+      currentTodoListId: 0
     };
     this.updateToDoList = this.updateToDoList.bind(this);
+    this.deleteTodo = this.deleteTodo.bind(this);
   }
 
   updateToDoList(newTodo) {
-    console.log('<updateToDoList> tonewTododo = ', newTodo);
+    let newTodoId = ++this.state.currentTodoListId;
     this.setState({
-      todoList: [...this.state.todoList, newTodo]
+      todoList: Object.assign({}, this.state.todoList, { [newTodoId + newTodo]: { todo: newTodo, id: newTodoId + newTodo } }),
+      currentTodoListId: newTodoId
+    });
+  }
+
+  deleteTodo(todoId) {
+    let todoListCopy = Object.assign({}, this.state.todoList);
+    delete todoListCopy[todoId];
+    this.setState({
+      todoList: Object.assign({}, todoListCopy)
     });
   }
 
   render() {
+    console.log('<index.js, render> Entry');
     return React.createElement(
       'div',
       null,
       React.createElement(TodoHeader, null),
       React.createElement(TodoCreate, { updateToDoList: this.updateToDoList }),
-      React.createElement(TodoList, { todoList: this.todoList })
+      React.createElement(TodoList, { todoList: this.state.todoList, deleteTodo: this.deleteTodo })
     );
   }
 }
@@ -22450,23 +22462,25 @@ class TodoCreate extends React.Component {
   }
 
   handleChange(event) {
-    console.log('<onToDoChange > event.target.value = ', event.target.value);
     this.setState({
       value: event.target.value
     });
-    console.log('this.state.value = ', this.state.value);
   }
 
   createNewToDo(event) {
-    console.log('<createNewToDo> this.state.value = ', this.state.value);
+    console.log('<TodoCreate, createNewToDo> this.state.value = ', this.state.value);
     this.props.updateToDoList(this.state.value);
+    this.setState({
+      value: ''
+    });
+    ReactDOM.findDOMNode(this.refs.item).focus();
   }
 
   render(props) {
     return React.createElement(
       'div',
       null,
-      React.createElement('input', { type: 'text', name: 'todo', value: this.state.value, onChange: this.handleChange }),
+      React.createElement('input', { type: 'text', ref: 'item', name: 'todo', value: this.state.value, onChange: this.handleChange }),
       React.createElement(
         'button',
         { onClick: this.createNewToDo },
@@ -22485,24 +22499,35 @@ module.exports = TodoCreate;
 const React = __webpack_require__(20);
 const ReactDOM = __webpack_require__(21);
 const Todo = __webpack_require__(187);
-console.log('<TodoList.js> Todo = ', Todo);
 
 class TodoList extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render(props) {
     let rows = [];
-    this.props.todoList.forEach((todo, index) => {
-      rows.push(React.createElement(Todo, { todoVal: todo, key: index + todo }));
-    });
+    let todoList = this.props.todoList;
+    if (todoList) {
+      for (let todoObj in todoList) {
+        if (todoList.hasOwnProperty(todoObj)) {
+          rows.push(React.createElement(Todo, {
+            todoObj: todoList[todoObj],
+            key: todoList[todoObj].id,
+            deleteTodo: this.props.deleteTodo }));
+        }
+      }
+    }
+    let styles = {
+      display: 'flex',
+      justifyContent: 'center',
+      border: '1px solid black',
+      margin: '20px'
+    };
+
     return React.createElement(
       'div',
       null,
       React.createElement(
         'table',
-        null,
+        { style: styles },
         React.createElement(
           'tbody',
           null,
@@ -22525,7 +22550,11 @@ const ReactDOM = __webpack_require__(21);
 class Todo extends React.Component {
   constructor(props) {
     super(props);
-    console.log('<TODO constructor>');
+    this.deleteTodo = this.deleteTodo.bind(this);
+  }
+
+  deleteTodo(e) {
+    this.props.deleteTodo(this.props.todoObj.id);
   }
 
   render(props) {
@@ -22534,8 +22563,8 @@ class Todo extends React.Component {
       null,
       React.createElement(
         'td',
-        null,
-        this.props.todoVal
+        { onClick: this.deleteTodo },
+        this.props.todoObj.todo
       )
     );
   }
