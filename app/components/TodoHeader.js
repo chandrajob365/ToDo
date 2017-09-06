@@ -12,4 +12,4 @@ class TodoHeader extends React.Component {
   }
 }
 
-module.exports = TodoHeader
+export default TodoHeader
