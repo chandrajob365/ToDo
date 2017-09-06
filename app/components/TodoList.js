@@ -1,6 +1,5 @@
-const React = require('react')
-const ReactDOM = require('react-dom')
-const Todo = require('./Todo')
+import React from 'react'
+import Todo from './Todo'
 
 class TodoList extends React.Component {
 
@@ -13,7 +12,7 @@ class TodoList extends React.Component {
           rows.push(<Todo
             todoObj={todoList[todoObj]}
             key={todoList[todoObj].id}
-            deleteTodo={this.props.deleteTodo} />)
+            deleteTodo={() => this.props.ondeleteTodoClick(todoList[todoObj].id)} />)
         }
       }
     }
@@ -34,4 +33,4 @@ class TodoList extends React.Component {
   }
 }
 
-module.exports = TodoList
+export default TodoList
