@@ -15,7 +15,7 @@ class Todo extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      checked: this.props.todoObj.complete
+      checked: this.props.todoObj.completed
     }
     this.updateCheck = this.updateCheck.bind(this)
   }
