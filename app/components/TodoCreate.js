@@ -1,7 +1,8 @@
 import React from 'react'
-// import ReactDOM from 'react-dom'
-// import {addToDo} from './actions/action'
-// import store from './store/store'
+import ReactDOM from 'react-dom'
+import TextField from 'material-ui/TextField'
+import FloatingActionButton from 'material-ui/FloatingActionButton'
+import ContentAdd from 'material-ui/svg-icons/content/add'
 
 class TodoCreate extends React.Component {
   constructor (props) {
@@ -10,7 +11,6 @@ class TodoCreate extends React.Component {
       value: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    // this.createNewToDo = this.createNewToDo.bind(this)
   }
 
   handleChange (event) {
@@ -19,22 +19,22 @@ class TodoCreate extends React.Component {
     })
   }
 
-  // createNewToDo (event) {
-  //   console.log('<TodoCreate, createNewToDo> this.state.value = ', this.state.value)
-  //   console.log('<TodoCreate, createNewToDo> this.refs.item.value = ', this.refs.item.value)
-  //   store.dispatch(addToDo(this.refs.item.value))
-  //   this.setState({
-  //     value: ''
-  //   })
-  //   ReactDOM.findDOMNode(this.refs.item).focus()
-  // }
-
   render (props) {
-    console.log('props = ', props)
+    console.log('props = ', this.props)
     return (
       <div>
-        <input type='text' ref='item' name='todo' value={this.state.value} onChange={this.handleChange} />
-        <button onClick={this.props.onAddToDoClick(this.state.value)}>Create</button>
+        <TextField floatingLabelText='Enter Todo'
+          ref='item' name='todo' value={this.state.value} onChange={this.handleChange} />
+        <FloatingActionButton mini onClick={() => {
+          this.props.onAddToDoClick(this.state.value)
+          this.setState({
+            value: ''
+          })
+          ReactDOM.findDOMNode(this.refs.item).focus()
+        }}>
+          <ContentAdd />
+        </FloatingActionButton>
+
       </div>
     )
   }
