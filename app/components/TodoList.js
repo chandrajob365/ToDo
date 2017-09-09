@@ -3,10 +3,7 @@ import Todo from './Todo'
 import FlatButton from 'material-ui/FlatButton'
 
 class TodoList extends React.Component {
-  constructor (props) {
-    super(props)
-  }
-  render () {
+  render (props) {
     console.log('<TodoList.js render> this.props.state = ', this.props.state)
     let rows = []
     let todoList = this.props.state.todoList
@@ -15,9 +12,9 @@ class TodoList extends React.Component {
       if (todoList.hasOwnProperty(todoObj)) {
         rows.push(
           <Todo
-          todoObj={todoList[todoObj]}
-          key={todoList[todoObj].id}
-          updateToDoStatus={this.props.onUpdateTodoStatus} />)
+            todoObj={todoList[todoObj]}
+            key={todoList[todoObj].id}
+            updateToDoStatus={this.props.onUpdateTodoStatus} />)
       }
     }
     let styles = {
@@ -29,10 +26,13 @@ class TodoList extends React.Component {
     return (
       <div style={styles}>
         {rows}
-      <FlatButton label='ALL' disabled={true} />
-      <FlatButton label='Active' disabled={true} />
-      <FlatButton label='Completed' disabled={true} />
-      <FlatButton label='Delete' secondary={true} onClick={this.props.ondeleteTodoClick}  />
+        <FlatButton label='ALL' primary onClick={this.props.onShowAllTodoClick}
+          backgroundColor={this.props.state.filter === 'ALL' ? '#BDBDBD' : '#ECEFF1'} />
+        <FlatButton label='Active' primary onClick={this.props.onShowActiveTodoClick}
+          backgroundColor={this.props.state.filter === 'ACTIVE' ? '#BDBDBD' : '#ECEFF1'} />
+        <FlatButton label='Completed' primary onClick={this.props.onShowCompletedTodoClick}
+          backgroundColor={this.props.state.filter === 'COMPLETED' ? '#BDBDBD' : '#ECEFF1'} />
+        <FlatButton label='Delete Completed' secondary onClick={this.props.ondeleteTodoClick} />
       </div>
     )
   }
