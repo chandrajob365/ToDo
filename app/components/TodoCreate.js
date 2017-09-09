@@ -30,8 +30,9 @@ class TodoCreate extends React.Component {
           this.setState({
             value: ''
           })
-          ReactDOM.findDOMNode(this.refs.item).focus()
-        }}>
+          this.refs.item.focus()
+        }
+            }>
           <ContentAdd />
         </FloatingActionButton>
 
