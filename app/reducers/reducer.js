@@ -1,6 +1,7 @@
 const intialState = {
   todoList: {},
-  currentTodoListId: 0
+  currentTodoListId: 0,
+  filter: ''
 }
 
 function todos (state = intialState, action) {
@@ -14,7 +15,8 @@ function todos (state = intialState, action) {
             ...state.todoList,
             [newToDoId + action.text]: {todo: action.text, id: (newToDoId + action.text), completed: false}
           },
-          currentTodoListId: ++newToDoId
+          currentTodoListId: ++newToDoId,
+          filter: 'ALL'
         }
     case 'DELETE_TODO':
       let todoListCopy = Object.assign({}, state)
@@ -41,28 +43,20 @@ function todos (state = intialState, action) {
 
       }
     case 'ALL':
-      return state
+      return {
+        ...state,
+        filter: action.type
+      }
     case 'ACTIVE':
-      // let stateCpy = Object.assign({}, state)
-      let ActiveToDos = {}
-      for (let key in state.todoList) {
-        if (state.todoList.hasOwnProperty(key)) {
-          if (!state.todoList[key].completed) {
-            Object.assign(ActiveToDos, {key: state.todoList[key]})
-          }
-        }
+      return {
+        ...state,
+        filter: action.type
       }
-      return { todoList: ActiveToDos, currentTodoListId: state.currentTodoListId }
     case 'COMPLETED':
-      let completedToDos = {}
-      for (let key in state.todoList) {
-        if (state.todoList.hasOwnProperty(key)) {
-          if (state.todoList[key].completed) {
-            Object.assign(completedToDos, {key: state.todoList[key]})
-          }
-        }
+      return {
+        ...state,
+        filter: action.type
       }
-      return { todoList: completedToDos, currentTodoListId: state.currentTodoListId }
     default:
       return state
   }
