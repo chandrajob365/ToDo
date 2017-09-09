@@ -4,13 +4,16 @@ import TodoCreate from '../components/TodoCreate'
 
 const mapDispatchToProps = dispatch => {
   return {
-    onAddToDoClick: todo => {
-      dispatch(addToDo(todo))
+    onAddToDoClick: todoText => {
+      if (todoText.length > 0) {
+        dispatch(addToDo(todoText))
+      }
     }
   }
 }
 
 const ToDoCreateContainer = connect(
+  undefined,
   mapDispatchToProps
 )(TodoCreate)
 
