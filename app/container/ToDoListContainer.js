@@ -2,7 +2,7 @@ import {connect} from 'react-redux'
 import {
   deleteTodo,
   updateToDoStatus,
-  visibilityFilter} from '../actions/action'
+  setVisibilityFilter} from '../actions/action'
 import TodoList from '../components/TodoList'
 
 const getDataByFilter = (state) => {
@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch) => (
       dispatch(updateToDoStatus(id, status))
     },
     applyVisibilityFilter (filter) {
-      dispatch(visibilityFilter(filter))
+      dispatch(setVisibilityFilter(filter))
     }
   }
 )
