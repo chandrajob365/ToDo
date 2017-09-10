@@ -2,9 +2,7 @@ import {connect} from 'react-redux'
 import {
   deleteTodo,
   updateToDoStatus,
-  showAll,
-  showActive,
-  showCompleted} from '../actions/action'
+  visibilityFilter} from '../actions/action'
 import TodoList from '../components/TodoList'
 
 const getDataByFilter = (state) => {
@@ -56,14 +54,8 @@ const mapDispatchToProps = (dispatch) => {
     onUpdateTodoStatus: (id, status) => {
       dispatch(updateToDoStatus(id, status))
     },
-    onShowAllTodoClick: () => {
-      dispatch(showAll())
-    },
-    onShowActiveTodoClick: () => {
-      dispatch(showActive())
-    },
-    onShowCompletedTodoClick: () => {
-      dispatch(showCompleted())
+    applyVisibilityFilter: filter => {
+      dispatch(visibilityFilter(filter))
     }
   }
 }
