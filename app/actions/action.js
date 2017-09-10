@@ -1,28 +1,27 @@
-export let addToDo = (text) => {
-  console.log('<action.js addToDo> text = ', text)
-  return {
+export let addToDo = (text) => (
+  {
     type: 'ADD_TODO',
     text
   }
-}
+)
 
-export let deleteTodo = () => {
-  return {
+export let deleteTodo = () => (
+  {
     type: 'DELETE_TODO'
   }
-}
+)
 
-export let updateToDoStatus = (id, status) => {
-  console.log('<action.js updateToDoStatus> id = ', id, '  status = ', status)
-  return {
+export let updateToDoStatus = (id, status) => (
+  {
     type: 'UPDATE_STATUS',
     id,
     status
   }
-}
+)
 
-export let visibilityFilter = (filter) => {
-  return {
-    type: filter
+export let visibilityFilter = (filter) => (
+  {
+    type: 'SET_VISIBILITY_FILTER',
+    filter
   }
-}
+)
