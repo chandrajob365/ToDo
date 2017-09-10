@@ -27,11 +27,11 @@ class TodoList extends React.Component {
       <div style={styles}>
         {rows}
         <FlatButton label='ALL' primary onClick={() => this.props.applyVisibilityFilter('ALL')}
-          backgroundColor={this.props.state.filter === 'ALL' ? '#BDBDBD' : '#ECEFF1'} />
+          backgroundColor={this.props.state.filter === 'ALL' ? 'grey50' : '#ECEFF1'} />
         <FlatButton label='Active' primary onClick={() => this.props.applyVisibilityFilter('ACTIVE')}
-          backgroundColor={this.props.state.filter === 'ACTIVE' ? '#BDBDBD' : '#ECEFF1'} />
+          backgroundColor={this.props.state.filter === 'ACTIVE' ? 'grey50' : '#ECEFF1'} />
         <FlatButton label='Completed' primary onClick={() => this.props.applyVisibilityFilter('COMPLETED')}
-          backgroundColor={this.props.state.filter === 'COMPLETED' ? '#BDBDBD' : '#ECEFF1'} />
+          backgroundColor={this.props.state.filter === 'COMPLETED' ? 'grey50' : '#ECEFF1'} />
         <FlatButton label='Delete Completed' secondary onClick={this.props.ondeleteTodoClick} />
       </div>
     )
