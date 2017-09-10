@@ -40,25 +40,25 @@ const getCompletedToDos = state => {
   return { todoList: completedToDos, currentTodoListId: state.currentTodoListId, filter: 'COMPLETED' }
 }
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => (
+  {
     state: getDataByFilter(state)
   }
-}
+)
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    ondeleteTodoClick: () => {
+const mapDispatchToProps = (dispatch) => (
+  {
+    ondeleteTodoClick () {
       dispatch(deleteTodo())
     },
-    onUpdateTodoStatus: (id, status) => {
+    onUpdateTodoStatus (id, status) {
       dispatch(updateToDoStatus(id, status))
     },
-    applyVisibilityFilter: filter => {
+    applyVisibilityFilter (filter) {
       dispatch(visibilityFilter(filter))
     }
   }
-}
+)
 
 const ToDoListContainer = connect(
   mapStateToProps,
