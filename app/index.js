@@ -1,15 +1,10 @@
 import React from 'react'
 import {render} from 'react-dom'
-import {Provider} from 'react-redux'
-import {createStore} from 'redux'
-import todos from './reducers/reducer'
-import App from './components/App'
+import Root from './components/root'
+import configureStore from './configureStore'
 
-let store = createStore(todos)
-
+let store = configureStore()
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store} />,
   document.getElementById('root')
 )
