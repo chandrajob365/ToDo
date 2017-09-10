@@ -5,7 +5,7 @@ import Link from '../components/Link'
 const mapStateToProps = (state, ownProps) => {
   console.log('<FilterLink, mapStateToProps> ownProps = ', ownProps)
   return {
-    active: state.filter === ownProps.filter || 'ALL'
+    active: state.filter === ownProps.filter
   }
 }
 
