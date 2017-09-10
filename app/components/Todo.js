@@ -3,11 +3,11 @@ import Checkbox from 'material-ui/Checkbox'
 
 const styles = {
   block: {
-    maxWidth: 250,
+    maxWidth: 250
   },
   checkbox: {
-    marginBottom: 16,
-  },
+    marginBottom: 16
+  }
 }
 
 class Todo extends React.Component {
@@ -26,7 +26,6 @@ class Todo extends React.Component {
         checked: !oldState.checked
       }
     })
-    console.log('<todo.js updateCheck> id = ', id, '  !this.props.todoObj.completed = ', !this.props.todoObj.completed)
     this.props.updateToDoStatus(id, !this.props.todoObj.completed)
   }
 
