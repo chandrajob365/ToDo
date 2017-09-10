@@ -19,7 +19,7 @@ export let updateToDoStatus = (id, status) => (
   }
 )
 
-export let visibilityFilter = (filter) => (
+export let setVisibilityFilter = (filter) => (
   {
     type: 'SET_VISIBILITY_FILTER',
     filter
