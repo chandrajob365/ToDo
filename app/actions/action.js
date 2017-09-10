@@ -21,20 +21,8 @@ export let updateToDoStatus = (id, status) => {
   }
 }
 
-export let showAll = () => {
+export let visibilityFilter = (filter) => {
   return {
-    type: 'ALL'
-  }
-}
-
-export let showActive = () => {
-  return {
-    type: 'ACTIVE'
-  }
-}
-
-export let showCompleted = () => {
-  return {
-    type: 'COMPLETED'
+    type: filter
   }
 }
